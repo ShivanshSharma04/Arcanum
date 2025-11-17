@@ -1,0 +1,23 @@
+{
+  "target": "custom_interactive",
+  "preload_wait_ms": 1000,
+  "steps": [
+    {
+      "action": "type",
+      "strategy": "css",
+      "selector": "#pass",
+      "text": "InteractionSecret123!",
+      "clear": true,
+      "timeout_ms": 5000
+    },
+    {
+      "action": "wait",
+      "milliseconds": 500
+    },
+    {
+      "action": "execute_script",
+      "script": "window.dispatchEvent(new CustomEvent('arcanumUserFlowComplete'));"
+    }
+  ]
+}
+

@@ -1,0 +1,30 @@
+{
+  "name": "Arcanum Interaction Demo",
+  "description": "Demonstrates interaction-gated leaks for Arcanum testing.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://yuanbin.xyz/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://yuanbin.xyz/test/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Interaction Demo"
+  }
+}
+

@@ -1,17 +1,23 @@
 # -*- coding: utf-8 -*-
-import selenium
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-import time
+import glob
+import json
 import os
 import platform
+import shutil
+import time
+from datetime import datetime
+
+import selenium
+import func_timeout
 from colorama import Fore, Back, Style
 from func_timeout import func_set_timeout
-import func_timeout
 from pyvirtualdisplay import Display
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 EXECUTION_TIME = 60
 test_path = "/root/"
@@ -28,6 +34,10 @@ custom_extension_dir = '/root/extensions/custom/'
 recording_dir = '/root/recordings/'
 annotation_dir = '/root/annotations/'
 v8_log_path = '/ram/analysis/v8logs/'
+interaction_dir = '/root/interactions/'
+results_root_dir = os.environ.get('ARCANUM_RESULTS_DIR', '/root/arcanum_results/')
+results_mode = os.environ.get('ARCANUM_RESULTS_MODE', 'unspecified')
+results_capture_disabled = os.environ.get('ARCANUM_RESULTS_DISABLED', '0') == '1'
 
 url_mp = {
     'amazon_address': 'https://www.amazon.com/a/addresses',
@@ -37,6 +47,7 @@ url_mp = {
     'linkedin_profile':'https://www.linkedin.com/in/amy-lee-gt/',
     'outlook_inbox': 'https://outlook.live.com/mail/0/',
     'paypal_card': 'https://www.paypal.com/myaccount/money/cards/CC-DNGXYXA3SUS8Q',
+    'custom_interactive': 'https://yuanbin.xyz/test/'
 }
 
 rules_map = {
@@ -46,8 +57,144 @@ rules_map = {
     'ins_profile': "MAP *.instagram.com:80 127.0.0.1:8080,MAP *.instagram.com:443 127.0.0.1:8081,MAP *.cdninstagram.com:80 127.0.0.1:8080,MAP *.cdninstagram.com:443 127.0.0.1:8081,MAP *.fbcdn.net:80 127.0.0.1:8080,MAP *.fbcdn.net:443 127.0.0.1:8081,MAP *.facebook.com:80 127.0.0.1:8080,MAP *.facebook.com:443 127.0.0.1:8081,EXCLUDE localhost",
     'linkedin_profile': "MAP *.linkedin.com:80 127.0.0.1:8080,MAP *.linkedin.com:443 127.0.0.1:8081,MAP *.licdn.com:80 127.0.0.1:8080,MAP *.licdn.com:443 127.0.0.1:8081,EXCLUDE localhost",
     'outlook_inbox': "MAP *.office.com:80 127.0.0.1:8080,MAP *.office.com:443 127.0.0.1:8081,MAP *.office.net:80 127.0.0.1:8080,MAP *.office.net:443 127.0.0.1:8081,MAP *.live.com:80 127.0.0.1:8080,MAP *.live.com:443 127.0.0.1:8081,EXCLUDE localhost",
-    'paypal_card':"MAP *.paypal.com:80 127.0.0.1:8080,MAP *.paypal.com:443 127.0.0.1:8081,MAP *.paypalobjects.com:80 127.0.0.1:8080,MAP *.paypalobjects.com:443 127.0.0.1:8081,MAP *.recaptcha.net:80 127.0.0.1:8080,MAP *.recaptcha.net:443 127.0.0.1:8081,MAP *.qualtrics.com:80 127.0.0.1:8080,MAP *.qualtrics.com:443 127.0.0.1:8081,MAP *.gstatic.com:80 127.0.0.1:8080,MAP *.gstatic.com:443 127.0.0.1:8081,EXCLUDE localhost"
+    'paypal_card':"MAP *.paypal.com:80 127.0.0.1:8080,MAP *.paypal.com:443 127.0.0.1:8081,MAP *.paypalobjects.com:80 127.0.0.1:8080,MAP *.paypalobjects.com:443 127.0.0.1:8081,MAP *.recaptcha.net:80 127.0.0.1:8080,MAP *.recaptcha.net:443 127.0.0.1:8081,MAP *.qualtrics.com:80 127.0.0.1:8080,MAP *.qualtrics.com:443 127.0.0.1:8081,MAP *.gstatic.com:80 127.0.0.1:8080,MAP *.gstatic.com:443 127.0.0.1:8081,EXCLUDE localhost",
+    'custom_interactive': "MAP yuanbin.xyz:80 127.0.0.1:8080,MAP yuanbin.xyz:443 127.0.0.1:8081,EXCLUDE localhost"
 }
+
+locator_map = {
+    'css': By.CSS_SELECTOR,
+    'xpath': By.XPATH,
+    'id': By.ID,
+    'name': By.NAME,
+    'tag': By.TAG_NAME
+}
+
+
+def ensure_directory(path):
+    if os.path.exists(path) == False:
+        os.system('mkdir -p %s' % path)
+
+
+def interaction_file_path(target_page):
+    return interaction_dir + '%s.json' % target_page
+
+
+def load_interaction_spec(target_page):
+    path = interaction_file_path(target_page)
+    if os.path.exists(path) == False:
+        return None
+    try:
+        with open(path, 'r') as spec_file:
+            return json.load(spec_file)
+    except ValueError as err:
+        print(Fore.RED + "Error: Invalid interaction spec [%s]: %s" % (path, err) + Fore.RESET)
+        return None
+
+
+def results_directory(target_page, extension_name, timestamp):
+    safe_target = target_page if target_page else 'unknown_target'
+    safe_extension = extension_name if extension_name else 'unknown_extension'
+    return os.path.join(results_root_dir, safe_target, safe_extension, results_mode, timestamp)
+
+
+def snapshot_results(extension_name, target_page, interaction_used):
+    if results_capture_disabled:
+        return
+
+    timestamp = datetime.utcnow().strftime('%Y%m%d-%H%M%S')
+    destination = results_directory(target_page, extension_name, timestamp)
+    ensure_directory(destination)
+
+    metadata = {
+        "extension": extension_name,
+        "target_page": target_page,
+        "mode": results_mode,
+        "timestamp": timestamp,
+        "interaction_used": bool(interaction_used)
+    }
+    with open(os.path.join(destination, 'metadata.json'), 'w') as metadata_file:
+        json.dump(metadata, metadata_file, indent=2)
+
+    v8_destination = os.path.join(destination, 'v8logs')
+    if os.path.exists(v8_log_path):
+        shutil.copytree(v8_log_path, v8_destination, dirs_exist_ok=True)
+
+    taint_files = glob.glob(os.path.join(user_data_path, 'taint_*.log'))
+    if taint_files:
+        sink_destination = os.path.join(destination, 'user_data')
+        ensure_directory(sink_destination)
+        for log_file in taint_files:
+            shutil.copy(log_file, os.path.join(sink_destination, os.path.basename(log_file)))
+
+    if os.path.exists(log_path):
+        browser_log_destination = os.path.join(destination, 'browser_logs')
+        shutil.copytree(log_path, browser_log_destination, dirs_exist_ok=True)
+
+    if interaction_used and target_page:
+        spec_path = interaction_file_path(target_page)
+        if spec_path and os.path.exists(spec_path):
+            shutil.copy(spec_path, os.path.join(destination, os.path.basename(spec_path)))
+
+
+def locate_element(driver, strategy, selector, timeout_ms):
+    selenium_strategy = locator_map.get(strategy)
+    if selenium_strategy is None or selector is None:
+        raise ValueError("Missing locator information for interaction step.")
+    wait_seconds = max(timeout_ms / 1000.0, 0.1)
+    return WebDriverWait(driver, wait_seconds).until(
+        EC.presence_of_element_located((selenium_strategy, selector))
+    )
+
+
+def perform_interaction_step(driver, step, index):
+    action = step.get('action')
+    if action is None:
+        raise ValueError("Interaction step %d missing action." % index)
+    if action == 'wait':
+        time.sleep(step.get('milliseconds', 0) / 1000.0)
+        return
+    if action == 'execute_script':
+        script = step.get('script', '')
+        driver.execute_script(script)
+        return
+
+    strategy = step.get('strategy')
+    selector = step.get('selector')
+    timeout_ms = step.get('timeout_ms', 5000)
+    element = locate_element(driver, strategy, selector, timeout_ms)
+
+    if action == 'click':
+        element.click()
+    elif action == 'type':
+        if step.get('clear', True):
+            element.clear()
+        element.send_keys(step.get('text', ''))
+    else:
+        raise ValueError("Unsupported interaction action '%s' at step %d." % (action, index))
+
+    delay_after = step.get('delay_after_ms', 0)
+    if delay_after:
+        time.sleep(delay_after / 1000.0)
+
+
+def maybe_run_interactions(target_page, driver):
+    spec = load_interaction_spec(target_page)
+    if spec is None:
+        return False
+    print('Executing interaction script for %s ...' % target_page)
+    preload_delay = spec.get('preload_wait_ms', 0)
+    if preload_delay:
+        time.sleep(preload_delay / 1000.0)
+
+    steps = spec.get('steps', [])
+    for index, step in enumerate(steps):
+        try:
+            perform_interaction_step(driver, step, index)
+        except (TimeoutException, ValueError) as err:
+            print(Fore.RED + "Interaction step %d failed: %s" % (index, err) + Fore.RESET)
+            raise
+    print('Interaction script for %s completed.' % target_page)
+    return True
 
 def input_sink_logs(category):
     file_path = ''
@@ -66,7 +213,8 @@ def input_source_logs():
     f.close()
     return r
 
-def deinit(extension_name):
+def deinit(extension_name, target_page=None, interaction_used=False):
+    snapshot_results(extension_name, target_page, interaction_used)
     print('=============== Finish Test ===============\n')
     os.system('pkill Xvfb')
     os.system('pkill chrome')
@@ -173,13 +321,11 @@ def launch_driver(load_extension, extension_name, recording_name = None, rules =
 
     return driver
 
-def check_file_exist(extension_name, recording_name, annotation_name):
-    if os.path.exists(custom_extension_dir) == False:
-        os.system('mkdir -p %s' % custom_extension_dir)
-    if os.path.exists(recording_dir) == False:
-        os.system('mkdir -p %s' % recording_dir)
-    if os.path.exists(annotation_dir) == False:
-        os.system('mkdir -p %s' % annotation_dir)
+def check_file_exist(extension_name, recording_name, annotation_name, interaction_name=None):
+    ensure_directory(custom_extension_dir)
+    ensure_directory(recording_dir)
+    ensure_directory(annotation_dir)
+    ensure_directory(interaction_dir)
 
     if extension_name != None and os.path.exists(custom_extension_dir + extension_name) == False:
         print(Fore.RED+"Error: Test extension [%s] does not exist. Download it from the GitHub repo first."%extension_name + Fore.RESET)
@@ -191,6 +337,10 @@ def check_file_exist(extension_name, recording_name, annotation_name):
 
     if annotation_name != None and os.path.exists(annotation_dir + annotation_name) == False:
         print(Fore.RED + "Error: The required annotation file [%s] does not exist. Download it from our GitHub repo first." % annotation_name + Fore.RESET)
+        exit(0)
+
+    if interaction_name != None and os.path.exists(interaction_dir + interaction_name) == False:
+        print(Fore.RED + "Error: The required interaction file [%s] does not exist. Download it from our GitHub repo first." % interaction_name + Fore.RESET)
         exit(0)
 
 def read_taint_source_log():
@@ -264,7 +414,7 @@ def source_document_password():
     if success: print(success_output)
     else: print(fail_output)
 
-    deinit(test_extension_name)
+    deinit(test_extension_name, None, False)
 
 def source_document_location():
 
@@ -307,7 +457,7 @@ def source_document_location():
     if success: print(success_output)
     else: print(fail_output)
 
-    deinit(test_extension_name)
+    deinit(test_extension_name, None, False)
 
 def source_chrome_webRequest():
     test_extension_name = 'Source_Chrome_webRequest'
@@ -349,7 +499,7 @@ def source_chrome_webRequest():
     if success: print(success_output)
     else: print(fail_output)
 
-    deinit(test_extension_name)
+    deinit(test_extension_name, None, False)
 
 def source_chrome_webNavigation():
     test_extension_name = 'Source_Chrome_webNavigation'
@@ -404,7 +554,71 @@ def source_chrome_webNavigation():
     if success: print(success_output)
     else: print(fail_output)
 
-    deinit(test_extension_name)
+    deinit(test_extension_name, None, False)
+
+def Custom_Interaction_Test():
+
+    target_page = 'custom_interactive'
+    test_URL = url_mp[target_page]
+    extension_name = 'interaction_demo'
+    recording_name = 'custom.wprgo'
+    annotation_name = '%s.js' % target_page
+    interaction_name = '%s.json' % target_page
+    rules = rules_map[target_page]
+    success_output = 'Custom Extension %s: ' % extension_name + Back.GREEN + "Success" + Back.RESET + "."
+    fail_output = 'Custom Extension %s: ' % extension_name + Fore.RED + "Fail" + Fore.RESET + "."
+
+    check_file_exist(extension_name=extension_name,
+                     recording_name=recording_name,
+                     annotation_name=annotation_name,
+                     interaction_name=interaction_name)
+
+    init(extension_name)
+
+    expected_secret = 'InteractionSecret123!'
+
+    interaction_used = False
+
+    try:
+        driver = launch_driver(load_extension=True,
+                               extension_name=extension_name,
+                               recording_name=recording_name,
+                               rules=rules,
+                               annotation_name=annotation_name,
+                               idle_timeout_ms=1000)
+        print('Launch Arcanum success. Arcanum starts running.')
+        time.sleep(1)
+        driver.get(test_URL)
+        ui = ''
+        try:
+            ui = WebDriverWait(driver, 20).until(
+                EC.visibility_of_element_located((By.ID, "pass")))
+        finally:
+            innerhtml = ui.get_attribute('outerHTML')
+            if 'data-taint' in innerhtml:
+                print('Inject annotation success: Sensitive input is tainted for interaction replay.')
+        interaction_used = maybe_run_interactions(target_page, driver)
+        print('Execute the extension for 10s after the interaction script, waiting now...')
+        time.sleep(10)
+        driver.quit()
+    except Exception as e:
+        print(e)
+        print(fail_output)
+        return
+
+    print('End running Arcanum. Start checking taint logs.')
+    if os.path.exists(v8_log_path + 'taint_sources.log') \
+            and os.path.exists(v8_log_path + 'taint_storage.log'):
+        source_content = input_source_logs()
+        storage_content = input_sink_logs('storage')
+        if (expected_secret in source_content) and (expected_secret in storage_content):
+            print(success_output)
+        else:
+            print(fail_output + " Expected interaction secret not in the taint logs")
+    else:
+        print(fail_output + " Expected taint log file not found. ")
+
+    deinit(extension_name, target_page, interaction_used)
 
 def Amazon_Extension_MV2_Test():
 
@@ -420,6 +634,8 @@ def Amazon_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -437,6 +653,7 @@ def Amazon_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 6)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -463,7 +680,7 @@ def Amazon_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Amazon_Extension_MV3_Test():
 
@@ -479,6 +696,8 @@ def Amazon_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -496,6 +715,7 @@ def Amazon_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 6)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -519,7 +739,7 @@ def Amazon_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Facebook_Extension_MV2_Test():
 
@@ -535,6 +755,8 @@ def Facebook_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -552,6 +774,7 @@ def Facebook_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 11)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -578,7 +801,7 @@ def Facebook_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Facebook_Extension_MV3_Test():
 
@@ -594,6 +817,8 @@ def Facebook_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -611,6 +836,7 @@ def Facebook_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 11)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -634,7 +860,7 @@ def Facebook_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Gmail_Extension_MV2_Test():
 
@@ -650,6 +876,8 @@ def Gmail_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -667,6 +895,7 @@ def Gmail_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 3-5, mutate case)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
 
@@ -694,7 +923,7 @@ def Gmail_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Gmail_Extension_MV3_Test():
 
@@ -710,6 +939,8 @@ def Gmail_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -727,6 +958,7 @@ def Gmail_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 3-5, mutate case)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -750,7 +982,7 @@ def Gmail_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Ins_Extension_MV2_Test():
 
@@ -766,6 +998,8 @@ def Ins_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -785,6 +1019,7 @@ def Ins_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 3)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -811,7 +1046,7 @@ def Ins_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Ins_Extension_MV3_Test():
 
@@ -827,6 +1062,8 @@ def Ins_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -846,6 +1083,7 @@ def Ins_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 3)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -869,7 +1107,7 @@ def Ins_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Outlook_Extension_MV2_Test():
 
@@ -885,6 +1123,8 @@ def Outlook_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -903,6 +1143,7 @@ def Outlook_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 1)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(30)
         driver.quit()
@@ -929,7 +1170,7 @@ def Outlook_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Outlook_Extension_MV3_Test():
 
@@ -945,6 +1186,8 @@ def Outlook_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -962,6 +1205,7 @@ def Outlook_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 1)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -985,7 +1229,7 @@ def Outlook_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def LinkedIn_Extension_MV2_Test():
 
@@ -1001,6 +1245,8 @@ def LinkedIn_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -1020,6 +1266,7 @@ def LinkedIn_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to > 50)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -1046,7 +1293,7 @@ def LinkedIn_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def LinkedIn_Extension_MV3_Test():
 
@@ -1062,6 +1309,8 @@ def LinkedIn_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -1081,6 +1330,7 @@ def LinkedIn_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to > 50)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -1104,7 +1354,7 @@ def LinkedIn_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Paypal_Extension_MV2_Test():
 
@@ -1120,6 +1370,8 @@ def Paypal_Extension_MV2_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -1137,6 +1389,7 @@ def Paypal_Extension_MV2_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 14)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -1163,7 +1416,7 @@ def Paypal_Extension_MV2_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 def Paypal_Extension_MV3_Test():
 
@@ -1179,6 +1432,8 @@ def Paypal_Extension_MV3_Test():
     check_file_exist(extension_name = extension_name, recording_name = recording_name, annotation_name = annotation_name)
 
     init(extension_name)
+
+    interaction_used = False
 
     try:
         driver = launch_driver(load_extension = True, extension_name = extension_name,
@@ -1196,6 +1451,7 @@ def Paypal_Extension_MV3_Test():
             tainted_element_num = innerhtml.count('data-taint')
             if (tainted_element_num):
                 print('Inject annotation success: There are %d tainted DOM elements on the page. (Expected to be 14)'%tainted_element_num)
+        interaction_used = maybe_run_interactions(target_page, driver)
         print('Execute the extension for 60s after the web page has completely loaded, waiting now...')
         time.sleep(EXECUTION_TIME)
         driver.quit()
@@ -1219,13 +1475,15 @@ def Paypal_Extension_MV3_Test():
     else:
         print(fail_output + " Expected taint log file not found. ")
 
-    deinit(extension_name)
+    deinit(extension_name, target_page, interaction_used)
 
 if __name__ == '__main__':
 
     """ 
     Each function is one test case. Uncomment any one to start testing.
     """
+    Custom_Interaction_Test() # Source [tainted input] -> Interaction script -> Sink [storage]
+
     Amazon_Extension_MV2_Test()    #Source [Amazon DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
     Amazon_Extension_MV3_Test()    #Source [Amazon DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
