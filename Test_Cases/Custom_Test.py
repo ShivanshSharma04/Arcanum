@@ -1499,7 +1499,7 @@ if __name__ == '__main__':
     """
     # Custom_Interaction_Test() # Source [tainted input] -> Interaction script -> Sink [storage] (Requires interaction_demo extension)
 
-    # Amazon_Extension_MV2_Test()    #Source [Amazon DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
+    Amazon_Extension_MV2_Test()    #Source [Amazon DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
     # Amazon_Extension_MV3_Test()    #Source [Amazon DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
     # Facebook_Extension_MV2_Test()  #Source [Facebook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
