@@ -36,7 +36,7 @@ annotation_dir = '/root/annotations/'
 v8_log_path = '/ram/analysis/v8logs/'
 interaction_dir = '/root/interactions/'
 results_root_dir = os.environ.get('ARCANUM_RESULTS_DIR', '/root/arcanum_results/')
-results_mode = os.environ.get('ARCANUM_RESULTS_MODE', 'unspecified')
+results_mode_override = os.environ.get('ARCANUM_RESULTS_MODE', None)  # Manual override (optional)
 results_capture_disabled = os.environ.get('ARCANUM_RESULTS_DISABLED', '0') == '1'
 
 url_mp = {
@@ -91,24 +91,30 @@ def load_interaction_spec(target_page):
         return None
 
 
-def results_directory(target_page, extension_name, timestamp):
+def results_directory(target_page, extension_name, timestamp, mode):
     safe_target = target_page if target_page else 'unknown_target'
     safe_extension = extension_name if extension_name else 'unknown_extension'
-    return os.path.join(results_root_dir, safe_target, safe_extension, results_mode, timestamp)
+    return os.path.join(results_root_dir, safe_target, safe_extension, mode, timestamp)
 
 
 def snapshot_results(extension_name, target_page, interaction_used):
     if results_capture_disabled:
         return
 
+    # Auto-determine mode from actual behavior, but allow manual override
+    if results_mode_override:
+        actual_mode = results_mode_override
+    else:
+        actual_mode = 'interactive' if interaction_used else 'passive'
+
     timestamp = datetime.utcnow().strftime('%Y%m%d-%H%M%S')
-    destination = results_directory(target_page, extension_name, timestamp)
+    destination = results_directory(target_page, extension_name, timestamp, actual_mode)
     ensure_directory(destination)
 
     metadata = {
         "extension": extension_name,
         "target_page": target_page,
-        "mode": results_mode,
+        "mode": actual_mode,
         "timestamp": timestamp,
         "interaction_used": bool(interaction_used)
     }
@@ -297,6 +303,15 @@ def launch_driver(load_extension, extension_name, recording_name = None, rules =
         if extension_name.endswith('.crx'): # Crx file
             options.add_extension(extension_path)
         else: # Unpack Extension
+            # Validate manifest.json for unpacked extensions
+            manifest_path = os.path.join(extension_path, 'manifest.json')
+            if os.path.exists(manifest_path):
+                try:
+                    with open(manifest_path, 'r') as mf:
+                        json.load(mf)
+                except json.JSONDecodeError as e:
+                    print(Fore.RED + "Error: Invalid JSON in extension manifest [%s]: %s" % (manifest_path, e) + Fore.RESET)
+                    raise ValueError("Extension manifest.json has syntax errors")
             options.add_argument('--load-extension={}'.format(extension_path))
 
     if idle_timeout_ms != None:
@@ -1482,7 +1497,7 @@ if __name__ == '__main__':
     """ 
     Each function is one test case. Uncomment any one to start testing.
     """
-    Custom_Interaction_Test() # Source [tainted input] -> Interaction script -> Sink [storage]
+    # Custom_Interaction_Test() # Source [tainted input] -> Interaction script -> Sink [storage] (Requires interaction_demo extension)
 
     # Amazon_Extension_MV2_Test()    #Source [Amazon DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
     # Amazon_Extension_MV3_Test()    #Source [Amazon DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
