@@ -36,6 +36,26 @@ annotation_dir = '/root/annotations/'
 v8_log_path = '/ram/analysis/v8logs/'
 interaction_dir = os.environ.get('ARCANUM_INTERACTIONS_DIR', '/root/interactions/')
 results_root_dir = os.environ.get('ARCANUM_RESULTS_DIR', '/root/arcanum_results/')
+
+SCRIPT_ROOT = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_ROOT, os.pardir))
+
+
+def _resolve_with_repo_fallback(env_var, default, fallback_subpath):
+    value = os.environ.get(env_var, default)
+    if os.path.exists(value):
+        return value
+    if fallback_subpath:
+        fallback = os.path.join(REPO_ROOT, fallback_subpath)
+        if os.path.exists(fallback):
+            return fallback
+    return value
+
+
+recording_dir = _resolve_with_repo_fallback('ARCANUM_RECORDING_DIR', recording_dir, 'recordings/')
+annotation_dir = _resolve_with_repo_fallback('ARCANUM_ANNOTATION_DIR', annotation_dir, 'annotations/')
+interaction_dir = _resolve_with_repo_fallback('ARCANUM_INTERACTIONS_DIR', interaction_dir, 'interactions/')
+results_root_dir = _resolve_with_repo_fallback('ARCANUM_RESULTS_DIR', results_root_dir, 'arcanum_results/')
 results_mode_override = os.environ.get('ARCANUM_RESULTS_MODE', None)  # Manual override (optional)
 results_capture_disabled = os.environ.get('ARCANUM_RESULTS_DISABLED', '0') == '1'
 
@@ -81,6 +101,7 @@ def interaction_file_path(target_page):
 
 def load_interaction_spec(target_page):
     path = interaction_file_path(target_page)
+    print('[DEBUG] load_interaction_spec: checking path=%s, exists=%s' % (path, os.path.exists(path)))
     if os.path.exists(path) == False:
         return None
     try:
@@ -185,6 +206,7 @@ def perform_interaction_step(driver, step, index):
 
 def maybe_run_interactions(target_page, driver):
     spec = load_interaction_spec(target_page)
+    print('[DEBUG] maybe_run_interactions: target_page=%s, spec=%s' % (target_page, 'loaded' if spec else 'None'))
     if spec is None:
         return False
     print('Executing interaction script for %s ...' % target_page)
