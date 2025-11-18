@@ -1,0 +1,25 @@
+** Propagation paths: 
+
+0x7a52a54b059: [String]: u"startErin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions_end"
+:
+>> IPC Object:
+/ram/analysis/v8logs/00000002.log
+>> END IPC Object
+
+
+** Taint source objects:
+
+
+** Propagation path functions: 
+
+0x0e07fbfcb319 <JSFunction (sfi = 0x1c5891589991)> ``: 700
+(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+}
+
+** Taint source functions: 
+
+

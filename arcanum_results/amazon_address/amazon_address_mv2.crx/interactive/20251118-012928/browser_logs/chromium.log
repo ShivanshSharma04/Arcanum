@@ -1,0 +1,132 @@
+[1192:1231:1118/012815.047030:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1192:1231:1118/012815.047255:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1192:1230:1118/012815.076246:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[1192:1230:1118/012815.076497:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[1238:1238:1118/012815.146727:WARNING:angle_platform_impl.cc(48)] vk_utils.cpp:353 (GetAvailableValidationLayers): Vulkan validation layers are missing.
+[1192:1192:1118/012815.193549:WARNING:account_consistency_mode_manager.cc(70)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[1192:1230:1118/012815.220810:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[1192:1230:1118/012815.220909:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[1238:1238:1118/012815.314508:WARNING:sandbox_linux.cc(380)] InitializeSandbox() called with multiple threads in process gpu-process.
+[1192:1230:1118/012815.437378:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[1192:1230:1118/012815.437545:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[1238:1238:1118/012815.854329:ERROR:gpu_memory_buffer_support_x11.cc(44)] dri3 extension not supported.
+[1269:1269:1118/012815.858545:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[1275:1275:1118/012815.877158:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[1192:1192:1118/012815.996499:WARNING:bluez_dbus_manager.cc(247)] Floss manager not present, cannot set Floss enable/disable.
+[1192:1286:1118/012816.196598:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1192:1286:1118/012816.196747:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1192:1286:1118/012816.196902:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1192:1286:1118/012816.196941:WARNING:property.cc(144)] DaemonVersion: GetAndBlock: failed.
+[1192:1286:1118/012816.197036:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1192:1286:1118/012816.197135:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[1288:1288:1118/012816.243777:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[1275:1275:1118/012816.613310:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1275:1275:1118/012816.616245:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[1288:1288:1118/012816.744236:INFO:local_window_proxy.cc(259)] MarkAsExtensionContext (Background mv2): ["chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/_generated_background_page.html"]
+[1288:1288:1118/012816.931026:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1288:1288:1118/012816.934397:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[1275:1275:1118/012818.354894:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1275:1275:1118/012818.454486:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[1313:1313:1118/012818.687232:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[1320:1320:1118/012818.773980:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[1192:1192:1118/012819.889297:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(523) Hint cache initialized
+[1313:1313:1118/012821.439356:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1313:1313:1118/012821.592151:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1313:1313:1118/012822.063386:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1192:1192:1118/012822.296826:INFO:CONSOLE(23)] "deliver ok", source: https://www.amazon.com/a/addresses (23)
+[1192:1192:1118/012822.298134:INFO:CONSOLE(32)] "name ok", source: https://www.amazon.com/a/addresses (32)
+[1192:1192:1118/012822.299830:INFO:CONSOLE(35)] "Hello, Amy", source: https://www.amazon.com/a/addresses (35)
+[1192:1192:1118/012822.301065:INFO:CONSOLE(42)] "address ok", source: https://www.amazon.com/a/addresses (42)
+[1192:1192:1118/012822.302299:INFO:CONSOLE(46)] "0", source: https://www.amazon.com/a/addresses (46)
+[1192:1192:1118/012822.303550:INFO:CONSOLE(46)] "1", source: https://www.amazon.com/a/addresses (46)
+[1192:1192:1118/012822.304794:INFO:CONSOLE(46)] "2", source: https://www.amazon.com/a/addresses (46)
+[1192:1192:1118/012822.306033:INFO:CONSOLE(55)] "language ok", source: https://www.amazon.com/a/addresses (55)
+[1192:1192:1118/012822.307279:INFO:CONSOLE(59)] "EN", source: https://www.amazon.com/a/addresses (59)
+[1192:1192:1118/012822.344605:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'jsError')", source: https://www.amazon.com/a/addresses (2472)
+[1313:1313:1118/012823.736558:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[1345:1345:1118/012823.960501:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[1313:1313:1118/012824.095890:INFO:local_window_proxy.cc(253)] MarkAsExtensionContext (Content Script): ["https://www.amazon.com/a/addresses"]
+[1320:1320:1118/012824.141268:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1192:1192:1118/012824.141840:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266 (0)
+[1192:1192:1118/012824.143037:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266 (0)
+[1192:1192:1118/012824.286778:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent=' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent= (0)
+[1192:1192:1118/012824.287397:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent=' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent= (0)
+[1192:1192:1118/012824.298152:INFO:CONSOLE(1)] "start content-script mv2", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (1)
+[1192:1192:1118/012824.325447:INFO:CONSOLE(16)] "Deliver to Amy
+Atlanta 30322‌", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (16)
+[1313:1313:1118/012824.325383:INFO:text_encoder.cc(78)] [SPECIFIC CHECK]##[TextEncoder::encode]##[input="Deliver to Amy\nAtlanta 30322\u200C"]
+[1320:1320:1118/012824.325811:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[1192:1192:1118/012824.334033:INFO:CONSOLE(21)] "taint_str=Erin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (21)
+[1192:1192:1118/012824.335576:INFO:CONSOLE(22)] "taint_url=https://www.amazon.com/a/addresses", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (22)
+[1192:1192:1118/012824.343457:INFO:CONSOLE(4)] "[object Object]", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/background.js (4)
+[1192:1192:1118/012824.345624:INFO:CONSOLE(5)] "tstr=Erin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/background.js (5)
+[1288:1288:1118/012824.346347:INFO:text_encoder.cc(78)] [SPECIFIC CHECK]##[TextEncoder::encode]##[input="Erin Lee\n27 A ST SW\nJACKSONVILLE, AL 36265-2402\nUnited States\nPhone number: \u202A+1 470 253 1212\u202C\nAdd delivery instructions_end"]
+[1192:1192:1118/012824.524426:INFO:CONSOLE(26)] "back strstartErin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (26)
+[1192:1192:1118/012824.634581:INFO:CONSOLE(28)] "key is set to: startErin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (28)
+[1239:1244:1118/012824.741901:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.745104:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.748387:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.754423:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.759240:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.764263:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.767867:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1239:1244:1118/012824.772524:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1192:1192:1118/012824.879667:INFO:CONSOLE(0)] "Refused to load the image 'https://ib.adnxs.com/getuid?https://cookie-matching.mediarithmics.com/input?key=APX&apx_uid=$UID&opid=apx&ops=&utidl=tech:goo:CAESEMxNp7UWuyMWRCec_zzLnCs&gdpr_consent=&gdpr=0&action=GET_ID&etid=&domid=1109' because it violates the following Content Security Policy directive: "default-src 'self' s.amazon-adsystem.com aax-eu.amazon-adsystem.com aax-fe.amazon-adsystem.com fonts.gstatic.com *.firefox.etp doubleclick.net *.imdb.com google.com *.samplicio.us serving-sys.com *.mediarithmics.com spotxchange.com samplicio.us imdb.com *.serving-sys.com *.doubleclick.net *.google.com *.myvisualiq.net myvisualiq.net *.spotxchange.com 'unsafe-inline'". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback.
+", source: https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent= (0)
+[1320:1320:1118/012824.888705:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[1320:1320:1118/012824.890677:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[1192:1192:1118/012826.506317:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'bb')", source: https://www.amazon.com/a/addresses (2472)
+[1239:1244:1118/012829.134742:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[1192:1192:1118/012831.901870:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'jsError')", source: https://www.amazon.com/a/addresses (2472)
+[1192:1192:1118/012831.956860:INFO:CONSOLE(0)] "Access to fetch at 'https://images-na.ssl-images-amazon.com/images/G/01/msa/vowels/metrics._STID662000-1694804209600_.jpg' from origin 'https://www.amazon.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.", source: https://www.amazon.com/a/addresses (0)
+[1192:1192:1118/012831.983256:INFO:CONSOLE(4)] "Error logged with the Track&Report JS errors API(http://tiny/1covqr6l8/wamazindeClieUserJava): {"m":"TypeError: Failed to fetch","csm":"v5 ueLogError callee","logLevel":"WARN","attribution":"MSAVowelsJavascriptAssets","pageURL":"https://www.amazon.com/a/addresses","s":["function(b,g){g||(g=\"ERROR\");b=b&&b.stack&&b.message?b:JSON.stringify(b);d({logLevel:g,attribution:\"MSAVowelsJavascriptAssets\",message:b})}","function(a){t(\"resourceError\",1);a instanceof TypeError&&a.message&&a.message.includes(\"Failed to fetch\")?n(a,\"WARN\"):n(a,\"ERROR\")}"],"t":13650} [object Object]", source: https://images-na.ssl-images-amazon.com/images/I/31bJewCvY-L.js (4)
+[1192:1192:1118/012832.016035:INFO:CONSOLE(0)] "Access to fetch at 'https://f.media-amazon.com/images/G/01/msa/vowels/metrics._STID662000-1694804209600_.jpg' from origin 'https://www.amazon.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.", source: https://www.amazon.com/a/addresses (0)
+[1192:1192:1118/012832.022537:INFO:CONSOLE(4)] "Error logged with the Track&Report JS errors API(http://tiny/1covqr6l8/wamazindeClieUserJava): {"m":"TypeError: Failed to fetch","csm":"v5 ueLogError callee","logLevel":"WARN","attribution":"MSAVowelsJavascriptAssets","pageURL":"https://www.amazon.com/a/addresses","s":["function(b,g){g||(g=\"ERROR\");b=b&&b.stack&&b.message?b:JSON.stringify(b);d({logLevel:g,attribution:\"MSAVowelsJavascriptAssets\",message:b})}","function(a){n(a,\"WARN\");throw c;}"],"t":13650} [object Object]", source: https://images-na.ssl-images-amazon.com/images/I/31bJewCvY-L.js (4)
+[1192:1192:1118/012832.025036:INFO:CONSOLE(0)] "Access to fetch at 'https://dk9ps7goqoeef.cloudfront.net/images/G/01/msa/vowels/metrics._STID662000-1694804209600_.jpg' from origin 'https://www.amazon.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.", source: https://www.amazon.com/a/addresses (0)
+[1192:1192:1118/012832.035007:INFO:CONSOLE(4)] "Error logged with the Track&Report JS errors API(http://tiny/1covqr6l8/wamazindeClieUserJava): {"m":"TypeError: Failed to fetch","csm":"v5 ueLogError callee","logLevel":"WARN","attribution":"MSAVowelsJavascriptAssets","pageURL":"https://www.amazon.com/a/addresses","s":["function(b,g){g||(g=\"ERROR\");b=b&&b.stack&&b.message?b:JSON.stringify(b);d({logLevel:g,attribution:\"MSAVowelsJavascriptAssets\",message:b})}","function(a){n(a,\"WARN\");throw c;}"],"t":13650} [object Object]", source: https://images-na.ssl-images-amazon.com/images/I/31bJewCvY-L.js (4)
+[1192:1192:1118/012832.037751:INFO:CONSOLE(0)] "Access to fetch at 'https://a.media-amazon.com/images/G/01/msa/vowels/metrics._STID662000-1694804209600_.jpg' from origin 'https://www.amazon.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.", source: https://www.amazon.com/a/addresses (0)
+[1192:1192:1118/012832.044176:INFO:CONSOLE(4)] "Error logged with the Track&Report JS errors API(http://tiny/1covqr6l8/wamazindeClieUserJava): {"m":"TypeError: Failed to fetch","csm":"v5 ueLogError callee","logLevel":"WARN","attribution":"MSAVowelsJavascriptAssets","pageURL":"https://www.amazon.com/a/addresses","s":["function(b,g){g||(g=\"ERROR\");b=b&&b.stack&&b.message?b:JSON.stringify(b);d({logLevel:g,attribution:\"MSAVowelsJavascriptAssets\",message:b})}","function(a){n(a,\"WARN\");throw c;}"],"t":13650} [object Object]", source: https://images-na.ssl-images-amazon.com/images/I/31bJewCvY-L.js (4)
+[1192:1192:1118/012839.469807:INFO:CONSOLE(0)] "The resource https://redirect.prod.experiment.routing.cloudfront.aws.a2z.com/x.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.", source: https://www.amazon.com/a/addresses (0)
+[1192:1192:1118/012901.157899:INFO:CONSOLE(0)] "The resource https://redirect.prod.experiment.routing.cloudfront.aws.a2z.com/x.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.", source: https://www.amazon.com/a/addresses (0)
+[1192:1192:1118/012917.176300:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(388) Received OptimizationHints component version: 572
+[1192:1192:1118/012917.176509:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(433) Processing OptimizationHints component version: 572
+[1192:1192:1118/012917.179744:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(570) Component successfully processed
+[1192:1192:1118/012917.182189:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(505) Loaded optimization filter for HistoryClusters
+[1192:1192:1118/012927.984891:ERROR:background_mode_manager_aura.cc(12)] Not implemented reached in virtual void BackgroundModeManager::EnableLaunchOnStartup(bool)
+[1192:1192:1118/012928.105845:WARNING:internal_linux.cc(67)] Failed to read /proc/1239/stat
+[1192:1192:1118/012928.105902:ERROR:kill_posix.cc(34)] waitpid(1239): No child processes (10)
+[1192:1192:1118/012928.116200:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

