@@ -34,7 +34,7 @@ custom_extension_dir = '/root/extensions/custom/'
 recording_dir = '/root/recordings/'
 annotation_dir = '/root/annotations/'
 v8_log_path = '/ram/analysis/v8logs/'
-interaction_dir = '/root/interactions/'
+interaction_dir = os.environ.get('ARCANUM_INTERACTIONS_DIR', '/root/interactions/')
 results_root_dir = os.environ.get('ARCANUM_RESULTS_DIR', '/root/arcanum_results/')
 results_mode_override = os.environ.get('ARCANUM_RESULTS_MODE', None)  # Manual override (optional)
 results_capture_disabled = os.environ.get('ARCANUM_RESULTS_DISABLED', '0') == '1'
