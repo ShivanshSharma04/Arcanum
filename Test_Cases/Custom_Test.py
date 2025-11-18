@@ -1484,23 +1484,23 @@ if __name__ == '__main__':
     """
     Custom_Interaction_Test() # Source [tainted input] -> Interaction script -> Sink [storage]
 
-    Amazon_Extension_MV2_Test()    #Source [Amazon DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
-    Amazon_Extension_MV3_Test()    #Source [Amazon DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
+    # Amazon_Extension_MV2_Test()    #Source [Amazon DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
+    # Amazon_Extension_MV3_Test()    #Source [Amazon DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
-    Facebook_Extension_MV2_Test()  #Source [Facebook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
-    Facebook_Extension_MV3_Test()  #Source [Facebook DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
+    # Facebook_Extension_MV2_Test()  #Source [Facebook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
+    # Facebook_Extension_MV3_Test()  #Source [Facebook DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
-    Ins_Extension_MV2_Test()       #Source [Facebook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
-    Ins_Extension_MV3_Test()       #Source [Facebook DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
+    # Ins_Extension_MV2_Test()       #Source [Facebook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
+    # Ins_Extension_MV3_Test()       #Source [Facebook DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
-    Paypal_Extension_MV2_Test()    # Source [Paypal DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
-    Paypal_Extension_MV3_Test()    # Source [Paypal DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
+    # Paypal_Extension_MV2_Test()    # Source [Paypal DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
+    # Paypal_Extension_MV3_Test()    # Source [Paypal DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
-    Gmail_Extension_MV2_Test()     # Source [Gmail DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]#
-    Gmail_Extension_MV3_Test()     # Source [Gmail DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
+    # Gmail_Extension_MV2_Test()     # Source [Gmail DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]#
+    # Gmail_Extension_MV3_Test()     # Source [Gmail DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
-    Outlook_Extension_MV2_Test()   # Source [Outlook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
-    Outlook_Extension_MV3_Test()   # Source [Outlook DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
+    # Outlook_Extension_MV2_Test()   # Source [Outlook DOM elements] -> Propagation [chrome.runtime.connect, postMessage, String Concat, TextEncode] -> Sink [storage, XMLHTTPRequest]
+    # Outlook_Extension_MV3_Test()   # Source [Outlook DOM elements] -> Propagation [JSON.stringify] -> Sink [Fetch]
 
 
     """
