@@ -1,0 +1,31 @@
+** Propagation paths: 
+
+0x26b985331019: [String]: uc"startErin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions_end"
+:
+  0x26b98532d8e9: [String]: u"Erin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions_end"
+, in function 42578245506793 ``: 136, 360
+
+0x26b98532d8e9: [String]: u"Erin Lee\x0a27 A ST SW\x0aJACKSONVILLE, AL 36265-2402\x0aUnited States\x0aPhone number: \u202a+1 470 253 1212\u202c\x0aAdd delivery instructions_end"
+:
+>> IPC Object:
+/ram/analysis/v8logs/00000001.log
+>> END IPC Object
+
+
+** Taint source objects:
+
+
+** Propagation path functions: 
+
+0x26b98532d6e9 <JSFunction (sfi = 0x2050ba69b3b1)> ``: 136
+(msg) {
+        console.log(msg);
+        console.log("tstr="+msg.tstr);
+        encoder = new TextEncoder();
+        decoder = new TextDecoder();
+        port.postMessage({backstr: "start"+decoder.decode(encoder.encode(msg.tstr))});
+    }
+
+** Taint source functions: 
+
+

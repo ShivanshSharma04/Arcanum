@@ -1,0 +1,132 @@
+[3067:3106:1118/023156.463294:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3067:3106:1118/023156.463531:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3067:3105:1118/023156.492793:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3067:3105:1118/023156.492931:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3113:3113:1118/023156.542353:WARNING:angle_platform_impl.cc(48)] vk_utils.cpp:353 (GetAvailableValidationLayers): Vulkan validation layers are missing.
+[3067:3067:1118/023156.593126:WARNING:account_consistency_mode_manager.cc(70)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[3067:3105:1118/023156.619385:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3067:3105:1118/023156.619521:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3113:3113:1118/023156.718518:WARNING:sandbox_linux.cc(380)] InitializeSandbox() called with multiple threads in process gpu-process.
+[3067:3105:1118/023156.817132:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3067:3105:1118/023156.817271:ERROR:bus.cc(399)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[3113:3113:1118/023157.240180:ERROR:gpu_memory_buffer_support_x11.cc(44)] dri3 extension not supported.
+[3145:3145:1118/023157.255203:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[3146:3146:1118/023157.265554:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[3067:3067:1118/023157.394685:WARNING:bluez_dbus_manager.cc(247)] Floss manager not present, cannot set Floss enable/disable.
+[3067:3162:1118/023157.594562:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3067:3162:1118/023157.594702:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3067:3162:1118/023157.594889:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3067:3162:1118/023157.594930:WARNING:property.cc(144)] DaemonVersion: GetAndBlock: failed.
+[3067:3162:1118/023157.595023:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3067:3162:1118/023157.595121:ERROR:bus.cc(399)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[3164:3164:1118/023157.640654:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[3146:3146:1118/023158.024364:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3146:3146:1118/023158.029014:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[3164:3164:1118/023158.134424:INFO:local_window_proxy.cc(259)] MarkAsExtensionContext (Background mv2): ["chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/_generated_background_page.html"]
+[3164:3164:1118/023158.310737:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3164:3164:1118/023158.313194:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[3146:3146:1118/023159.742690:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3146:3146:1118/023159.846166:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[3187:3187:1118/023159.952785:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[3196:3196:1118/023200.120864:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[3067:3067:1118/023200.900158:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(523) Hint cache initialized
+[3145:3145:1118/023202.508664:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3145:3145:1118/023202.612408:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3145:3145:1118/023203.004433:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3067:3067:1118/023203.194276:INFO:CONSOLE(23)] "deliver ok", source: https://www.amazon.com/a/addresses (23)
+[3067:3067:1118/023203.195992:INFO:CONSOLE(32)] "name ok", source: https://www.amazon.com/a/addresses (32)
+[3067:3067:1118/023203.196689:INFO:CONSOLE(35)] "Hello, Amy", source: https://www.amazon.com/a/addresses (35)
+[3067:3067:1118/023203.199433:INFO:CONSOLE(42)] "address ok", source: https://www.amazon.com/a/addresses (42)
+[3067:3067:1118/023203.200269:INFO:CONSOLE(46)] "0", source: https://www.amazon.com/a/addresses (46)
+[3067:3067:1118/023203.201223:INFO:CONSOLE(46)] "1", source: https://www.amazon.com/a/addresses (46)
+[3067:3067:1118/023203.202027:INFO:CONSOLE(46)] "2", source: https://www.amazon.com/a/addresses (46)
+[3067:3067:1118/023203.203132:INFO:CONSOLE(55)] "language ok", source: https://www.amazon.com/a/addresses (55)
+[3067:3067:1118/023203.209519:INFO:CONSOLE(59)] "EN", source: https://www.amazon.com/a/addresses (59)
+[3145:3145:1118/023204.632051:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[3216:3216:1118/023204.835346:ERROR:runtime_enabled_features.cc(2498)] RuntimeEnabledFeature not recognized: ShadowDOMV0
+[3067:3067:1118/023204.987352:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266 (0)
+[3067:3067:1118/023204.988127:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/iu3?d=amazon.com&slot=navFooter&a1=01012fffa6ca902a819755f2529b1a9fbb581434d30392ade9914c388f13cd2955d5&a2=010191fc70327086727b873a981758a2a620ac929c50fd2a5a92568341c160ca9587&old_oo=0&ts=1694804240266&s=AeOyRtrEHvLZgwq3wGOa4bat4o3036fjp-k-CbXZC601&gdpr_consent=&gdpr_consent_avl=&cb=1694804240266 (0)
+[3196:3196:1118/023205.019407:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3145:3145:1118/023205.109985:INFO:local_window_proxy.cc(253)] MarkAsExtensionContext (Content Script): ["https://www.amazon.com/a/addresses"]
+[3067:3067:1118/023205.120787:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent=' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent= (0)
+[3067:3067:1118/023205.121807:INFO:CONSOLE(0)] "Blocked script execution in 'https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent=' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.", source: https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent= (0)
+[3196:3196:1118/023205.167182:INFO:script_injection_manager.cc(188)] kScriptIdleTimeoutInMs=2000
+
+[3067:3067:1118/023205.285732:INFO:CONSOLE(1)] "start content-script mv2", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (1)
+[3145:3145:1118/023205.301595:INFO:text_encoder.cc(78)] [SPECIFIC CHECK]##[TextEncoder::encode]##[input="Deliver to Amy\nAtlanta 30322\u200C"]
+[3067:3067:1118/023205.301772:INFO:CONSOLE(16)] "Deliver to Amy
+Atlanta 30322‌", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (16)
+[3067:3067:1118/023205.307952:INFO:CONSOLE(21)] "taint_str=Erin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (21)
+[3067:3067:1118/023205.308875:INFO:CONSOLE(22)] "taint_url=https://www.amazon.com/a/addresses", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (22)
+[3067:3067:1118/023205.315656:INFO:CONSOLE(4)] "[object Object]", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/background.js (4)
+[3067:3067:1118/023205.318234:INFO:CONSOLE(5)] "tstr=Erin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/background.js (5)
+[3164:3164:1118/023205.318220:INFO:text_encoder.cc(78)] [SPECIFIC CHECK]##[TextEncoder::encode]##[input="Erin Lee\n27 A ST SW\nJACKSONVILLE, AL 36265-2402\nUnited States\nPhone number: \u202A+1 470 253 1212\u202C\nAdd delivery instructions_end"]
+[3067:3067:1118/023205.462056:INFO:CONSOLE(26)] "back strstartErin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (26)
+[3114:3119:1118/023205.543405:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.548240:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.551014:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.557693:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.560444:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.565168:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.567914:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3114:3119:1118/023205.576543:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3067:3067:1118/023205.640370:INFO:CONSOLE(28)] "key is set to: startErin Lee
+27 A ST SW
+JACKSONVILLE, AL 36265-2402
+United States
+Phone number: ‪+1 470 253 1212‬
+Add delivery instructions_end", source: chrome-extension://nghblfoekbjpebbhdegldnaehkeifpob/content-script.js (28)
+[3067:3067:1118/023205.704359:INFO:CONSOLE(0)] "Refused to load the image 'https://ib.adnxs.com/getuid?https://cookie-matching.mediarithmics.com/input?key=APX&apx_uid=$UID&opid=apx&ops=&utidl=tech:goo:CAESEIrvuGoP6YTKugvqsieWBaA&gdpr_consent=&gdpr=0&action=GET_ID&etid=&domid=1109' because it violates the following Content Security Policy directive: "default-src 'self' s.amazon-adsystem.com aax-eu.amazon-adsystem.com aax-fe.amazon-adsystem.com fonts.gstatic.com *.firefox.etp doubleclick.net *.imdb.com google.com *.samplicio.us serving-sys.com *.mediarithmics.com spotxchange.com samplicio.us imdb.com *.serving-sys.com *.doubleclick.net *.google.com *.myvisualiq.net myvisualiq.net *.spotxchange.com 'unsafe-inline'". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback.
+", source: https://s.amazon-adsystem.com/v3/pr?exlist=imdb_sx_n-sk_n-mediarithmics_n-lucid_g_n-visualiq_adelphic&fv=1.0&a=cm&dmt=1&gdpr_consent= (0)
+[3196:3196:1118/023205.713663:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[3196:3196:1118/023205.715388:INFO:script_injection_manager.cc(216)] kDelayForAnimationInMs=200
+
+[3067:3067:1118/023206.949702:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'fetchStart')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023206.951475:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'domainLookupStart')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023206.980642:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'domainLookupEnd')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023206.982226:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'connectStart')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023207.099421:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'secureConnectionStart')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023207.101612:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'requestStart')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023207.184684:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'responseEnd')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023207.186557:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'domLoading')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023208.065276:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'domContentLoadedEventStart')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023208.067155:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'domContentLoadedEventEnd')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023208.405303:INFO:CONSOLE(2472)] "Uncaught TypeError: Cannot set properties of undefined (setting 'visuallyLoaded50')", source: https://www.amazon.com/a/addresses (2472)
+[3067:3067:1118/023208.487535:INFO:CONSOLE(2472)] "Uncaught (in promise) TypeError: Cannot set properties of undefined (setting 'domComplete')", source: https://www.amazon.com/a/addresses (2472)
+[3114:3119:1118/023210.473048:WARNING:http_cache_transaction.cc(1261)] Unable to open or create cache entry
+[3067:3067:1118/023210.515351:INFO:CONSOLE(455)] "CSM logging failed for HeadLatency - cannot log HeadLatency with value 0, it is negative or 0", source: https://images-na.ssl-images-amazon.com/images/I/41W974vG8QL._RC%7C71zzjyvEIHL.js,01QvReFeJyL.js,01phmzCOwJL.js,01eOvPdxG7L.js,71RDRWJQQQL.js,41306Iio4NL.js,115pV8Rl02L.js,01+pnQJuQ0L.js,21rDHgaooIL.js,41LFml+7fVL.js,51t-JTxfnwL.js,317BC63dC8L.js,11lEMI5MhIL.js,31c7Fn9h9gL.js,01LEzWzrPZL.js,01AqeWA7PKL.js_.js?AUIClients/NavDesktopUberAsset&lLvq0Ux1 (455)
+[3067:3067:1118/023258.572524:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(388) Received OptimizationHints component version: 572
+[3067:3067:1118/023258.572751:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(433) Processing OptimizationHints component version: 572
+[3067:3067:1118/023258.577293:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(570) Component successfully processed
+[3067:3067:1118/023258.579524:INFO:optimization_guide_logger.cc(42)] ../../components/optimization_guide/core/hints_manager.cc(505) Loaded optimization filter for HistoryClusters
+[3067:3067:1118/023309.266966:ERROR:background_mode_manager_aura.cc(12)] Not implemented reached in virtual void BackgroundModeManager::EnableLaunchOnStartup(bool)
+[3067:3067:1118/023309.390068:WARNING:internal_linux.cc(67)] Failed to read /proc/3114/stat
+[3067:3067:1118/023309.390124:ERROR:kill_posix.cc(34)] waitpid(3114): No child processes (10)
+[3067:3067:1118/023309.400637:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
