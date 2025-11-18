@@ -1,0 +1,37 @@
+{
+  "target": "amazon_address",
+  "preload_wait_ms": 2000,
+  "steps": [
+    {
+      "action": "click",
+      "strategy": "css",
+      "selector": "#glow-ingress-block",
+      "timeout_ms": 5000
+    },
+    {
+      "action": "type",
+      "strategy": "css",
+      "selector": "#address-ui-widgets-FullName",
+      "text": "Interaction Test",
+      "clear": true,
+      "timeout_ms": 5000
+    },
+    {
+      "action": "type",
+      "strategy": "css",
+      "selector": "#address-ui-widgets-AddressLineOne",
+      "text": "123 Interaction St",
+      "clear": true,
+      "timeout_ms": 5000
+    },
+    {
+      "action": "wait",
+      "milliseconds": 400
+    },
+    {
+      "action": "execute_script",
+      "script": "window.dispatchEvent(new CustomEvent('arcanumUserFlowComplete'));"
+    }
+  ]
+}
+
