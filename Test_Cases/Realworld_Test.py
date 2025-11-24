@@ -134,7 +134,8 @@ def launch_driver(load_extension, extension_name, recording_name = None, rules =
 
     prefs = {"profile.default_content_setting_values.notifications": 2}
     options.add_experimental_option("prefs", prefs)
-    driver = webdriver.Chrome(service=service, options=options)
+    # driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
     driver.set_page_load_timeout(600)
 
     return driver

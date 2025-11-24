@@ -67,7 +67,8 @@ def launch_driver():
     prefs = {"profile.default_content_setting_values.notifications": 2}
     options.add_experimental_option("prefs", prefs)
 
-    driver = webdriver.Chrome(service=service, options=options)
+    # driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
     return driver
 
 def Run_Basic_Test():
