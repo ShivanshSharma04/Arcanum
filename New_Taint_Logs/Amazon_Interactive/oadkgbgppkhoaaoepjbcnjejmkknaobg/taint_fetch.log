@@ -1,0 +1,68 @@
+>>> TAINT SINK `XHR` REACHED (fetch-body-USVString) <<<
+STACK TRACE START: 
+0x3c4b07007da9 <String[148]: c"I (chrome-extension://oadkgbgppkhoaaoepjbcnjejmkknaobg/background.js:4:4300)chrome-extension://oadkgbgppkhoaaoepjbcnjejmkknaobg/background.js:4:5385">
+STACK TRACE END.
+
+///////////////////////// Details /////////////////////////
+
+** FETCH leak, request URL = https://faas-tor1-70ca848e.doserverless.co/api/v1/web/fn-95174a8b-baf3-4efa-9cc6-420906f0d494/default/HuggingFaceFunction
+
+** Tainted bytes: (nullptr=1): 
+
+** Sink object: {"inputs":"Save time. Autofill your current location.Hmm. We couldn’t find your device’s location. Please enter the address manually.Hmm. We couldn’t detect your location. Please grant amazon.com location permission in your browserHmm. We couldn’t find your device’s location. Please enter it manually.Hmm. We couldn’t detect your location. Please ensure device's location is enabled in settings.Unable to change country, please try againFull name (First and Last name)Inappropriate words in Name are not allowed. Please enter correct Name.Full first and last name are required. No numbers or special characters (@, #, !).To prevent delivery issues, enter your full first and last name. No initials or titles (Dr, Ms, likewise).May be used to assist deliveryEntered phone number has insufficient charactersEntered phone number has non numeric charactersPlease enter a valid mobile numberPlease ensure only numeric digits are entered should the driver need to phone ahead of delivery. “+” at the start is allowed.Please enter a city name.Please enter a state, region, or province.Please enter a valid ZIP or postal code.You have to provide a valid zip code within our service area. Please try again after validating the zip code on a recent utility bill.Inténtalo de nuevo, o proporciona Estado, Ciudad, y Colonia manualmente.Make this my default addressDelivery instructions (optional)Sorry, there was a problem"}
+
+** Propagation paths: 
+
+0x3c4b070063e1: [String]: uc"{"inputs":"Save time. Autofill your current location.Hmm. We couldn\u2019t find your device\u2019s location. Please enter the address manually.Hmm. We couldn\u2019t detect your location. Please grant amazon.com location permission in your browserHmm. We couldn\u2019t find your device\u2019s location. Please enter it manually.Hmm. We couldn\u2019t detect your location. Please ensure device's location is enabled in settings.Unable to change country, please try againFull name (First and Last name)Inappropriate words in Name are not allowed. Please enter correct Name.Full first and last name are required. No numbers or special characters (@, #, !).To prevent delivery issues, enter your full first and last name. No initials or titles (Dr, Ms, likewise).May be used to assist deliveryEntered phone number has insufficient charactersEntered phone number has non numeric charactersPlease enter a valid mobile numberPlease ensure only numeric digits are entered should the driver need to phone ahead of delivery. \u201c+\u201d at the start is allowed.Please enter a city name.Please enter a state, region, or province.Please enter a valid ZIP or postal code.You have to provide a valid zip code within our service area. Please try again after validating the zip code on a recent utility bill.Int\xe9ntalo de nuevo, o proporciona Estado, Ciudad, y Colonia manualmente.Make this my default addressDelivery instructions (optional)Sorry, there was a problem"}"
+:
+>> IPC Object:
+{"details":"","tainted":false,"recursive":{"inputs":{"details":"/ram/analysis/v8logs/000005cc.log","tainted":true,"recursive":{}}}}
+>> END IPC Object
+
+
+** Taint source objects:
+
+
+** Propagation path functions: 
+
+0x184e3c66fc51 <JSFunction I (sfi = 0x894c6d75311)> `I`: 4278
+(e,t){switch(e){case"detectGPT":const s=await(await fetch("https://faas-tor1-70ca848e.doserverless.co/api/v1/web/fn-95174a8b-baf3-4efa-9cc6-420906f0d494/default/HuggingFaceFunction",{headers:{"Content-Type":"application/json"},method:"POST",body:JSON.stringify({inputs:t})})).json();return await k(),s;case"originality":var n=await chrome.storage.local.get("detectGPT_settings").then(async function(o){var i=!1,c=o.detectGPT_settings;if(c){var l=c.apikey,o=await fetch(v.SCANNING,{method:"POST",body:JSON.stringify({content:t}),headers:{"Content-Type":"application/json","X-OAI-API-KEY":l}}).then(r=>(r.status==422&&(i=!0),r.json())).then(r=>!i&&r.success&&r.score?{success:!0,point:r.score}:{success:!1,error:r.error}).catch(r=>({success:!1,error:"Error happended"}));return o}});return n}}
+
+** Taint source functions: 
+
+
+>>> END TAINT SINK REPORT <<<
+>>> TAINT SINK `XHR` REACHED (fetch-body-USVString) <<<
+STACK TRACE START: 
+0x3c4b07018959 <String[148]: c"I (chrome-extension://oadkgbgppkhoaaoepjbcnjejmkknaobg/background.js:4:4300)chrome-extension://oadkgbgppkhoaaoepjbcnjejmkknaobg/background.js:4:5385">
+STACK TRACE END.
+
+///////////////////////// Details /////////////////////////
+
+** FETCH leak, request URL = https://faas-tor1-70ca848e.doserverless.co/api/v1/web/fn-95174a8b-baf3-4efa-9cc6-420906f0d494/default/HuggingFaceFunction
+
+** Tainted bytes: (nullptr=1): 
+
+** Sink object: {"inputs":" Address saved John Doe1234 ATLANTIC DR NWATLANTA, GA 30318-5314United StatesPhone number: ‪1234567890‬ Edit   |   Remove John Doe1234 ATLANTIC DR NWATLANTA, GA 30318-5314United StatesPhone number: ‪1234567890‬ Please note: Removing this address will not affect any pending orders being shipped to this address. To ensure uninterrupted fulfillment of future orders, please update any wishlists, subscribe and save settings and periodical subscriptions using this address. Related 1-Click Settings Change address on an open order "}
+
+** Propagation paths: 
+
+0x3c4b07017769: [String]: uc"{"inputs":" Address saved John Doe1234 ATLANTIC DR NWATLANTA, GA 30318-5314United StatesPhone number: \u202a1234567890\u202c Edit \xa0 | \xa0 Remove John Doe1234 ATLANTIC DR NWATLANTA, GA 30318-5314United StatesPhone number: \u202a1234567890\u202c Please note: Removing this address will not affect any pending orders being shipped to this address. To ensure uninterrupted fulfillment of future orders, please update any wishlists, subscribe and save settings and periodical subscriptions using this address. Related 1-Click Settings Change address on an open order "}"
+:
+>> IPC Object:
+{"details":"","tainted":false,"recursive":{"inputs":{"details":"/ram/analysis/v8logs/000005ce.log","tainted":true,"recursive":{}}}}
+>> END IPC Object
+
+
+** Taint source objects:
+
+
+** Propagation path functions: 
+
+0x184e3c66fc51 <JSFunction I (sfi = 0x894c6d75311)> `I`: 4278
+(e,t){switch(e){case"detectGPT":const s=await(await fetch("https://faas-tor1-70ca848e.doserverless.co/api/v1/web/fn-95174a8b-baf3-4efa-9cc6-420906f0d494/default/HuggingFaceFunction",{headers:{"Content-Type":"application/json"},method:"POST",body:JSON.stringify({inputs:t})})).json();return await k(),s;case"originality":var n=await chrome.storage.local.get("detectGPT_settings").then(async function(o){var i=!1,c=o.detectGPT_settings;if(c){var l=c.apikey,o=await fetch(v.SCANNING,{method:"POST",body:JSON.stringify({content:t}),headers:{"Content-Type":"application/json","X-OAI-API-KEY":l}}).then(r=>(r.status==422&&(i=!0),r.json())).then(r=>!i&&r.success&&r.score?{success:!0,point:r.score}:{success:!1,error:r.error}).catch(r=>({success:!1,error:"Error happended"}));return o}});return n}}
+
+** Taint source functions: 
+
+
+>>> END TAINT SINK REPORT <<<

@@ -194,6 +194,16 @@ def run_batch_study():
         
         if leak_detected:
             print(Back.RED + f"RESULT: PASSIVE LEAK DETECTED for {ext_id} (Unexpected)" + Back.RESET)
+            
+            # Save logs to "New Taint Logs/Amazon_Passive" (Unexpected leaks are interesting!)
+            log_dest = os.path.join(TEST_PATH, "New Taint Logs/Amazon_Passive", ext_id)
+            if not os.path.exists(log_dest):
+                os.makedirs(log_dest)
+            
+            print(f"Saving UNEXPECTED logs to {log_dest}...")
+            os.system(f"cp {USER_DATA}taint_*.log '{log_dest}/' 2>/dev/null")
+            os.system(f"cp /ram/analysis/v8logs/taint_*.log '{log_dest}/' 2>/dev/null")
+            
         else:
             print(Back.GREEN + f"RESULT: No passive leak for {ext_id} (Success)" + Back.RESET)
             

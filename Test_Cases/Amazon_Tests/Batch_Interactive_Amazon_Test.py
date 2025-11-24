@@ -212,6 +212,17 @@ def run_batch_study():
         
         if leak_detected:
             print(Back.GREEN + f"RESULT: LEAK DETECTED for {ext_id}" + Back.RESET)
+            
+            # Save logs to "New Taint Logs/Amazon_Interactive"
+            log_dest = os.path.join(TEST_PATH, "New Taint Logs/Amazon_Interactive", ext_id)
+            if not os.path.exists(log_dest):
+                os.makedirs(log_dest)
+            
+            print(f"Saving logs to {log_dest}...")
+            # Copy from both potential locations
+            os.system(f"cp {USER_DATA}taint_*.log '{log_dest}/' 2>/dev/null")
+            os.system(f"cp /ram/analysis/v8logs/taint_*.log '{log_dest}/' 2>/dev/null")
+            
         else:
             print(Fore.RED + f"RESULT: No leak for {ext_id}" + Fore.RESET)
             
