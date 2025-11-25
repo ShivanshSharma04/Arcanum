@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import time
 from selenium import webdriver
@@ -10,7 +9,7 @@ from colorama import Fore, Back, Style
 from pyvirtualdisplay import Display
 
 # --- Configuration ---
-TEST_PATH = "/root/beeslab-arcanum/"
+TEST_PATH = "/root/"
 RECORDING_PATH = TEST_PATH + 'recordings/amazon_interactive.wprgo'
 ANNOTATION_PATH = TEST_PATH + 'annotations/amazon_interactive.js'
 WPR_PATH = '/root/go/pkg/mod/github.com/catapult-project/catapult/web_page_replay_go@v0.0.0-20230901234838-f16ca3c78e46/'
@@ -73,13 +72,20 @@ def start_wpr():
     if not os.path.exists(WPR_PATH):
         print(Fore.RED + f"Error: WPR path not found: {WPR_PATH}" + Fore.RESET)
         return False
+    
+    # Verify annotation file exists
+    if not os.path.exists(ANNOTATION_PATH):
+        print(Fore.RED + f"Error: Annotation file not found: {ANNOTATION_PATH}" + Fore.RESET)
+        return False
+    
+    print(Fore.CYAN + f"Annotation file found: {ANNOTATION_PATH}" + Fore.RESET)
 
     os.chdir(WPR_PATH)
     # Note: Using deterministic.js + our new annotation file
     cmd = (f'nohup /usr/local/go/bin/go run src/wpr.go replay '
            f'--http_port=8080 --https_port=8081 '
-           f'--inject_scripts=deterministic.js,{ANNOTATION_PATH} '
-           f'{RECORDING_PATH} > /tmp/wprgo.log 2>&1 &')
+           f'--inject_scripts=deterministic.js,{os.path.abspath(ANNOTATION_PATH)} '
+           f'{os.path.abspath(RECORDING_PATH)} > /tmp/wprgo.log 2>&1 &')
     
     print(f"Starting WPR: {cmd}")
     os.system(cmd)
@@ -118,6 +124,67 @@ def launch_arcanum(extension_path):
     
     driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=options)
     return driver
+
+def check_element_taint(driver, selector, name):
+    """Check if a specific element has been tainted"""
+    try:
+        element = driver.find_element(By.CSS_SELECTOR, selector)
+        taint_value = element.get_attribute("data-taint")
+        
+        if taint_value == "1":
+            print(Fore.GREEN + f"  [TAINTED] {name}" + Fore.RESET)
+            return True
+        else:
+            print(Fore.RED + f"  [NOT TAINTED] {name} (value: {taint_value})" + Fore.RESET)
+            return False
+    except Exception as e:
+        print(Fore.YELLOW + f"  [NOT FOUND] {name}: {e}" + Fore.RESET)
+        return False
+
+def verify_tainting(driver):
+    """Verify that all target elements have been tainted"""
+    print("\n" + "="*60)
+    print("TAINT VERIFICATION")
+    print("="*60)
+    
+    # Give JavaScript time to apply taints
+    time.sleep(2)
+    
+    # Check if annotation script was injected
+    script_check = driver.execute_script("""
+        var scripts = document.getElementsByTagName('script');
+        var found = false;
+        for (var i = 0; i < scripts.length; i++) {
+            if (scripts[i].textContent.includes('waitForElm')) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    """)
+    print(f"Annotation script injected: {script_check}")
+    
+    # Check each target element
+    targets = [
+        ("#ya-myab-address-add-link", "Add Address Button"),
+        ("#address-ui-widgets-enterAddressFullName", "Full Name Field"),
+        ("#address-ui-widgets-enterAddressPhoneNumber", "Phone Number Field"),
+        ("#address-ui-widgets-enterAddressLine1", "Address Line 1 Field"),
+        ("#address-ui-widgets-enterAddressCity", "City Field"),
+        ("#address-ui-widgets-enterAddressPostalCode", "Zip Code Field"),
+        ("#address-ui-widgets-form-submit-button", "Submit Button")
+    ]
+    
+    tainted_count = 0
+    for selector, name in targets:
+        if check_element_taint(driver, selector, name):
+            tainted_count += 1
+    
+    print("="*60)
+    print(f"Tainted Elements: {tainted_count}/{len(targets)}")
+    print("="*60 + "\n")
+    
+    return tainted_count == len(targets)
 
 def check_logs():
     """Check for leakage in logs, handling multiple potential paths"""
@@ -171,12 +238,19 @@ def run_interactive_test():
         add_btn = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "#ya-myab-address-add-link"))
         )
+        
+        # Verify tainting after page load but before interaction
+        verify_tainting(driver)
+        
         add_btn.click()
         
         print("Waiting for address form...")
         WebDriverWait(driver, 20).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#address-ui-widgets-enterAddressFullName"))
         )
+        
+        # Verify tainting of form fields
+        verify_tainting(driver)
         
         print("Entering interactive data...")
         # Data must match the recording exactly or WPR might 404 on the POST request
@@ -194,6 +268,8 @@ def run_interactive_test():
         
     except Exception as e:
         print(Fore.RED + f"Test Execution Error: {str(e)}" + Fore.RESET)
+        import traceback
+        print(Fore.RED + f"Traceback: {traceback.format_exc()}" + Fore.RESET)
         
     finally:
         if driver:
