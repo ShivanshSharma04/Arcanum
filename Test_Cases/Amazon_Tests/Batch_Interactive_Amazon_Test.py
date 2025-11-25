@@ -13,7 +13,7 @@ from pyvirtualdisplay import Display
 from func_timeout import func_timeout, FunctionTimedOut
 
 # --- Configuration ---
-TEST_PATH = "/root/beeslab-arcanum/"
+TEST_PATH = "/root/"
 RECORDING_PATH = TEST_PATH + 'recordings/amazon_interactive.wprgo'
 ANNOTATION_PATH = TEST_PATH + 'annotations/amazon_interactive.js'
 WPR_PATH = '/root/go/pkg/mod/github.com/catapult-project/catapult/web_page_replay_go@v0.0.0-20230901234838-f16ca3c78e46/'
